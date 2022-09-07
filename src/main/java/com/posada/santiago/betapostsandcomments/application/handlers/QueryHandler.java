@@ -3,6 +3,7 @@ package com.posada.santiago.betapostsandcomments.application.handlers;
 
 import com.posada.santiago.betapostsandcomments.business.gateways.model.PostViewModel;
 import com.posada.santiago.betapostsandcomments.business.usecases.BringAllPostsUseCase;
+import com.posada.santiago.betapostsandcomments.business.usecases.BringPostById;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -24,5 +25,14 @@ public class QueryHandler {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase.get(), PostViewModel.class))
                 );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> bringPostByIdHandler(BringPostById useCase){
+        return route(GET("/bring/post/{id}"),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(useCase.apply(request.pathVariable("id")), PostViewModel.class))
+        );
     }
 }

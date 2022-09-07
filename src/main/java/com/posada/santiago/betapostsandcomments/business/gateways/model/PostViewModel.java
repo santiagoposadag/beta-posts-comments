@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostViewModel {
+
+    private String id;
     private String aggregateId;
     private String author;
     private String title;
@@ -18,6 +20,14 @@ public class PostViewModel {
         this.author = author;
         this.title = title;
         this.comments = comments;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAggregateId() {
