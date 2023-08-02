@@ -19,8 +19,9 @@ public class RabbitMqConfig {
     public static final String PROXY_QUEUE_COMMENT_ADDED = "events.proxy.comment.added";
     public static final String GENERAL_QUEUE = "events.general";
 
-    public static final String PROXY_ROUTING_KEY_POST_CREATED = "routingKey.proxy.post.created";
-    public static final String PROXY_ROUTING_KEY_COMMENT_ADDED = "routingKey.proxy.comment.added";
+    public static final String PROXY_ROUTING_KEY_EVENTS_GENERAL = "posada.santiago.*";
+    public static final String PROXY_ROUTING_KEY_POST_CREATED = "posada.santiago.postcreated";
+    public static final String PROXY_ROUTING_KEY_COMMENT_ADDED = "posada.santiago.commentsadded";
 
     @Autowired
     private QueueHandler handler;
@@ -33,6 +34,11 @@ public class RabbitMqConfig {
     @Bean
     public Queue commentAddedQueue(){
         return new Queue(PROXY_QUEUE_COMMENT_ADDED);
+    }
+
+    @Bean
+    public Queue eventsGeneralQueue(){
+        return new Queue(GENERAL_QUEUE);
     }
 
 
@@ -48,6 +54,11 @@ public class RabbitMqConfig {
 
     @Bean
     public Binding BindingToCommentAdded() {
+        return BindingBuilder.bind(eventsGeneralQueue()).to(getTopicExchange()).with(PROXY_ROUTING_KEY_EVENTS_GENERAL);
+    }
+
+    @Bean
+    public Binding BindingToEvents() {
         return BindingBuilder.bind(commentAddedQueue()).to(getTopicExchange()).with(PROXY_ROUTING_KEY_COMMENT_ADDED);
     }
 
