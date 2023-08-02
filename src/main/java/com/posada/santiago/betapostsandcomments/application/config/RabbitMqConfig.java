@@ -19,7 +19,7 @@ public class RabbitMqConfig {
     public static final String PROXY_QUEUE_COMMENT_ADDED = "events.proxy.comment.added";
     public static final String GENERAL_QUEUE = "events.general";
 
-    public static final String PROXY_ROUTING_KEY_EVENTS_GENERAL = "posada.santiago.*";
+    public static final String PROXY_ROUTING_KEY_EVENTS_GENERAL = "posada.santiago.general";
     public static final String PROXY_ROUTING_KEY_POST_CREATED = "posada.santiago.postcreated";
     public static final String PROXY_ROUTING_KEY_COMMENT_ADDED = "posada.santiago.commentsadded";
 

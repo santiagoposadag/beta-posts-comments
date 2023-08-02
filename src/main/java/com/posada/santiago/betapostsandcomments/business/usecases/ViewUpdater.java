@@ -23,13 +23,13 @@ public class ViewUpdater extends DomainUpdater {
 
         listen((PostCreated event)->{
             PostViewModel post = new PostViewModel(event.aggregateRootId(), event.getAuthor(), event.getTitle(), new ArrayList<>());
-            bus.publishGeneric(post, "routingKey.proxy.post.created");
+            bus.publishGeneric(post, "posada.santiago.postcreated");
             repository.saveNewPost(post).subscribe();
         });
         listen((CommentAdded event)->{
             CommentViewModel comment = new CommentViewModel(event.getId(), event.aggregateRootId(), event.getAuthor(), event.getContent());
             repository.addCommentToPost(comment).subscribe();
-            bus.publishGeneric(comment, "routingKey.proxy.comment.added");
+            bus.publishGeneric(comment, "posada.santiago.commentsadded");
         });
     }
 }
